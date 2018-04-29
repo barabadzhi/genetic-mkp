@@ -1,5 +1,4 @@
 use rsgenetic::sim::{*, select::TournamentSelector, seq::Simulator};
-// use rsgenetic::sim::{*, select::UnstableMaximizeSelector, seq::Simulator};
 
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -204,7 +203,6 @@ impl Knapsack {
         let mut simulator = Simulator::builder(&mut population)
             .set_selector(Box::new(
                 TournamentSelector::new_checked(16, selection_count).unwrap(),
-                // UnstableMaximizeSelector::new(random_population_size / 10),
             ))
             .build();
 
@@ -220,12 +218,6 @@ impl Knapsack {
             {
                 best_individual = chromosome.clone();
             }
-
-            // println!(
-            //     "{} {:?}",
-            //     self.chromosome_total_value(&chromosome),
-            //     self.capacity_left(&chromosome)
-            // );
         }
 
         let mut result = Statistics::new();

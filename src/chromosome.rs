@@ -65,7 +65,7 @@ impl<'a> Phenotype<FitnessValue> for Chromosome<'a> {
 
         let mut chromosome = self.clone();
 
-        // occasional 1nd mutation
+        // occasional 1st mutation
         if rng.gen_weighted_bool(8) {
             let random_index = rng.gen_range(0, chromosome.items.len());
             chromosome.items[random_index] = !chromosome.items[random_index];

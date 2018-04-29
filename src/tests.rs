@@ -26,7 +26,7 @@ mod tests {
 
         while start.elapsed() < limit {
             random_population_size = rng.gen_range(50, 1000);
-            selection_count = rng.gen_range(20, random_population_size / 2);
+            selection_count = rng.gen_range(random_population_size / 5, random_population_size / 2);
             iterations_count = rng.gen_range(50, 100);
 
             let new_result =
