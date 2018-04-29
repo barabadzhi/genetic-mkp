@@ -10,6 +10,7 @@ mod chromosome;
 mod item;
 mod knapsack;
 mod statistics;
+mod tests;
 
 use knapsack::Knapsack;
 
