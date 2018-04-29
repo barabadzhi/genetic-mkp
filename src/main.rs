@@ -48,7 +48,7 @@ fn read_cmd_arguments() -> (String, usize, usize, u64) {
                 .short("s")
                 .long("selection")
                 .value_name("NUMBER")
-                .help("Sets half the number of parents that will be selected")
+                .help("Sets number of participants selected for tournaments")
                 .takes_value(true),
         )
         .arg(
@@ -71,7 +71,7 @@ fn read_cmd_arguments() -> (String, usize, usize, u64) {
 
     let selection_count = matches
         .value_of("selection")
-        .unwrap_or("10")
+        .unwrap_or("25")
         .parse::<usize>()
         .unwrap();
 

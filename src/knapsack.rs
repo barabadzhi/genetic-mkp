@@ -196,31 +196,37 @@ impl Knapsack {
     pub fn run_ga(
         &self,
         random_population_size: usize,
-        _selection_count: usize,
-        _iterations_count: u64,
+        selection_count: usize,
+        iterations_count: u64,
     ) -> Statistics {
         let mut population = self.generate_population(random_population_size);
 
         let mut simulator = Simulator::builder(&mut population)
             .set_selector(Box::new(
-                TournamentSelector::new_checked(16, random_population_size / 2).unwrap(),
+                TournamentSelector::new_checked(16, selection_count).unwrap(),
                 // UnstableMaximizeSelector::new(random_population_size / 10),
             ))
             .build();
 
-        for _ in 0..1000 {
+        let mut best_individual = self.greedy_chromosome();
+
+        for _ in 0..iterations_count {
             simulator.checked_step();
 
             let chromosome = simulator.get().unwrap();
 
-            println!(
-                "{} {:?}",
-                self.chromosome_total_value(&chromosome),
-                self.capacity_left(&chromosome)
-            );
-        }
+            if self.chromosome_total_value(&best_individual)
+                < self.chromosome_total_value(&chromosome)
+            {
+                best_individual = chromosome.clone();
+            }
 
-        let best_individual = simulator.get().unwrap();
+            // println!(
+            //     "{} {:?}",
+            //     self.chromosome_total_value(&chromosome),
+            //     self.capacity_left(&chromosome)
+            // );
+        }
 
         let mut result = Statistics::new();
 
