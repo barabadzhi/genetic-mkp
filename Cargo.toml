@@ -1,0 +1,10 @@
+[package]
+name = "genetic-mkp"
+version = "0.1.0"
+authors = ["Bogdan Arabadzhi <bogdan.today@gmail.com>"]
+
+[dependencies]
+clap = "2.31.2"
+colored = "1.6.0"
+rsgenetic = "1.7.14"
+rand = "0.4.2"
