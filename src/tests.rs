@@ -29,7 +29,7 @@ mod tests {
             random_population_size = rng.gen_range(50, 1000);
             selection_count = rng.gen_range(random_population_size / 5, random_population_size / 2);
             iterations_count = rng.gen_range(50, 500);
-            parents_count = rng.gen_range(5, (random_population_size - 1) / 2) * 2;
+            parents_count = rng.gen_range(5, (random_population_size - 1) / 4) * 2;
 
             let new_result = knapsack.run_ga(
                 random_population_size,
