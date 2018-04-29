@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use rand::Rng;
     use colored::*;
+    use rand::Rng;
 
     use knapsack::Knapsack;
     use statistics::Statistics;
@@ -18,8 +18,9 @@ mod tests {
         let mut random_population_size;
         let mut selection_count;
         let mut iterations_count;
+        let mut parents_count;
 
-        let mut p_s = (0, 0);
+        let mut p_s_p = (0, 0, 0);
 
         let start = Instant::now();
         let limit = Duration::from_secs(60);
@@ -27,19 +28,27 @@ mod tests {
         while start.elapsed() < limit {
             random_population_size = rng.gen_range(50, 1000);
             selection_count = rng.gen_range(random_population_size / 5, random_population_size / 2);
-            iterations_count = rng.gen_range(50, 100);
+            iterations_count = rng.gen_range(50, 500);
+            parents_count = rng.gen_range(5, (random_population_size - 1) / 2) * 2;
 
-            let new_result =
-                knapsack.run_ga(random_population_size, selection_count, iterations_count);
+            let new_result = knapsack.run_ga(
+                random_population_size,
+                selection_count,
+                parents_count,
+                iterations_count,
+            );
 
             if new_result.total_profit > result.total_profit {
                 result = new_result;
-                p_s = (random_population_size, selection_count);
+                p_s_p = (random_population_size, selection_count, parents_count);
             }
         }
 
         println!("{}", file.green().bold());
-        println!("Population: {}, Selection: {}", p_s.0, p_s.1);
+        println!(
+            "Population: {}, Selection: {}, Parents: {}",
+            p_s_p.0, p_s_p.1, p_s_p.2
+        );
         println!("{}{}", "GA".cyan().bold(), result);
     }
 

@@ -1,8 +1,8 @@
-use rsgenetic::sim::{*, select::TournamentSelector, seq::Simulator};
+use rsgenetic::sim::{select::TournamentSelector, seq::Simulator, *};
 
+use std::cmp::Ordering;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use std::cmp::Ordering;
 
 use chromosome::Chromosome;
 use item::Item;
@@ -196,13 +196,14 @@ impl Knapsack {
         &self,
         random_population_size: usize,
         selection_count: usize,
+        count: usize,
         iterations_count: u64,
     ) -> Statistics {
         let mut population = self.generate_population(random_population_size);
 
         let mut simulator = Simulator::builder(&mut population)
             .set_selector(Box::new(
-                TournamentSelector::new_checked(16, selection_count).unwrap(),
+                TournamentSelector::new_checked(count, selection_count).unwrap(),
             ))
             .build();
 

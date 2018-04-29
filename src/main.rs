@@ -19,7 +19,12 @@ fn main() {
 
     let knapsack = Knapsack::from(&file);
 
-    let ga_result = knapsack.run_ga(random_population_size, selection_count, iterations_count);
+    let ga_result = knapsack.run_ga(
+        random_population_size,
+        selection_count,
+        18,
+        iterations_count,
+    );
     println!("{}{}", "GA".cyan().bold(), ga_result);
 }
 
